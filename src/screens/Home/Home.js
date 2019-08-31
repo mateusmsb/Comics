@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
   searchButtonConteiner: {
     flex: 1,
 
-    padding: 4,
+    padding: 5,
   },
 });
