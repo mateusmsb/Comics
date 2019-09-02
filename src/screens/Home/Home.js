@@ -3,10 +3,14 @@ import {
   SafeAreaView,
   StyleSheet,
   TextInput,
-  Text,
+  Image,
   View,
   TouchableOpacity,
+  FlatList,
+  Dimensions,
+  ScrollView,
 } from 'react-native';
+import Card from './../../components/Card';
 
 async function getComicFromApi(url) {
   try {
@@ -21,13 +25,24 @@ async function getComicFromApi(url) {
 export default class Home extends Component {
   constructor(props) {
     super(props);
-    this.state = {text: '', APIresponse: ''};
+    this.state = {
+      text: 'spider',
+      APIresponse: '123456',
+      path: 'https://images-na.ssl-images-amazon.com/images/I/811KEbZlORL.png',
+    };
   }
 
-  URL =
-    'https://gateway.marvel.com:443/v1/public/characters?ts=1&nameStartsWith=';
+  URL = 'https://gateway.marvel.com/v1/public/characters?ts=1&nameStartsWith=';
   key =
-    '&apikey=82ce1d6dce6d9ac7247955f72200b95e&hash=f98a46b9172ced518265f5c6d8936eaa';
+    '&limit=5&apikey=82ce1d6dce6d9ac7247955f72200b95e&hash=f98a46b9172ced518265f5c6d8936eaa';
+
+  componentDidMount() {
+    getComicFromApi(this.URL + 'spider' + this.key)
+      .then(response => {
+        this.setState({responseArray: response.results});
+      })
+      .then(console.log('did', this.state.responseArray));
+  }
 
   render() {
     return (
@@ -35,7 +50,7 @@ export default class Home extends Component {
         <View style={styles.searchComponent}>
           <TextInput
             style={styles.searchBar}
-            placeholder={'Buscar herói...'}
+            placeholder={'Search Hero...'}
             placeholderTextColor="white"
             onChangeText={entry => {
               this.setState({text: entry});
@@ -45,19 +60,71 @@ export default class Home extends Component {
             <TouchableOpacity
               style={styles.searchButton}
               onPress={() => {
-                getComicFromApi(this.URL + this.state.text + this.key).then(
+                getComicFromApi(this.URL + 'spider' + this.key).then(
                   response => {
-                    this.setState({APIresponse: response});
-                    console.log(this.state.APIresponse);
+                    this.setState({
+                      path:
+                        response.results[5].thumbnail.path +
+                        '.' +
+                        response.results[5].thumbnail.extension,
+                    });
                   },
                 );
               }}
             />
           </View>
         </View>
-        <View style={{flex: 1, height: 100}}>
-          <Text>{this.state.APIresponse}</Text>
-        </View>
+        <View style={{flex: 1, height: 100}}></View>
+
+        <ScrollView>
+          <FlatList
+            horizontal={true}
+            data={this.state.responseArray}
+            renderItem={({item}) => (
+              <Card
+                data={item}
+                width={Dimensions.get('window').width / 3.05}
+                onPress={() => {
+                  console.log(item);
+                }}
+              />
+            )}
+          />
+          <FlatList
+            horizontal={true}
+            data={this.state.responseArray}
+            renderItem={({item}) => (
+              <Card
+                data={item}
+                width={Dimensions.get('window').width / 3.05}
+                onPress={() => {
+                  console.log(item);
+                }}
+              />
+            )}
+          />
+          <FlatList
+            horizontal={true}
+            data={this.state.responseArray}
+            renderItem={({item}) => (
+              <Card
+                data={item}
+                width={Dimensions.get('window').width / 3.05}
+                onPress={() => {}}
+              />
+            )}
+          />
+          <TouchableOpacity
+            onPress={() => {
+              // this.props.navigation.navigate('About');
+              console.log('about', this.state.responseArray);
+            }}
+            style={{
+              height: 20,
+              width: Dimensions.get('window').width,
+              backgroundColor: 'red',
+            }}></TouchableOpacity>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -82,6 +149,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 5,
     borderColor: 'white',
+    width: Dimensions.get('window').width * 0.95,
   },
   searchButton: {
     flex: 1,
