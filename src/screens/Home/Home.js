@@ -28,7 +28,7 @@ export default class Home extends Component {
     this.state = {
       text: 'spider',
       APIresponse: '123456',
-      path: 'https://images-na.ssl-images-amazon.com/images/I/811KEbZlORL.png',
+     
     };
   }
 
