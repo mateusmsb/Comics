@@ -28,16 +28,15 @@ export default class Home extends Component {
     this.state = {
       text: 'spider',
       APIresponse: '123456',
-     
     };
   }
 
   URL = 'https://gateway.marvel.com/v1/public/characters?ts=1&nameStartsWith=';
   key =
-    '&limit=5&apikey=82ce1d6dce6d9ac7247955f72200b95e&hash=f98a46b9172ced518265f5c6d8936eaa';
+    '&limit=10&apikey=82ce1d6dce6d9ac7247955f72200b95e&hash=f98a46b9172ced518265f5c6d8936eaa';
 
   componentDidMount() {
-    getComicFromApi(this.URL + 'spider' + this.key)
+    getComicFromApi(this.URL + this.state.text + this.key)
       .then(response => {
         this.setState({responseArray: response.results});
       })
@@ -60,13 +59,10 @@ export default class Home extends Component {
             <TouchableOpacity
               style={styles.searchButton}
               onPress={() => {
-                getComicFromApi(this.URL + 'spider' + this.key).then(
+                getComicFromApi(this.URL + this.state.text + this.key).then(
                   response => {
-                    this.setState({
-                      path:
-                        response.results[5].thumbnail.path +
-                        '.' +
-                        response.results[5].thumbnail.extension,
+                    this.props.navigation.navigate('Results', {
+                      array: response.results,
                     });
                   },
                 );

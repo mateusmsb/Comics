@@ -2,6 +2,7 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
 import Home from './src/screens/Home/Home';
 import About from './src/screens/About/About';
+import Results from './src/screens/Results/Results';
 
 const AppNavigator = createStackNavigator({
   Home: {
@@ -14,6 +15,12 @@ const AppNavigator = createStackNavigator({
     screen: About,
     navigationOptions: {
       headerTitle: 'About',
+    },
+  },
+  Results: {
+    screen: Results,
+    navigationOptions: {
+      headerTitle: 'Results',
     },
   },
 });
