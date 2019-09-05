@@ -14,10 +14,7 @@ import Card from './../../components/Card';
 export default class Results extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      text: 'spider',
-      APIresponse: '123456',
-    };
+    this.state = {};
   }
 
   componentDidMount() {
@@ -28,13 +25,17 @@ export default class Results extends Component {
       <SafeAreaView style={styles.background}>
         <ScrollView style={styles.scrollView}>
           <FlatList
+            style={{padding: 10}}
             data={this.props.navigation.state.params.array}
             renderItem={({item}) => (
               <Card
                 data={item}
-                width={Dimensions.get('window').width}
+                width={Dimensions.get('window').width * 0.7}
                 onPress={() => {
-                  console.log(item);
+                  this.props.navigation.navigate('Details', {
+                    array: item,
+                  }),
+                    console.log('item', item);
                 }}
               />
             )}
