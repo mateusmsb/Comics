@@ -4,8 +4,10 @@ import {View, Image, TouchableOpacity, Text, FlatList} from 'react-native';
 export default class Card extends Component {
   constructor(props) {
     super(props);
-    this.state = {fontSize: 15};
+    this.state = {image: 15};
   }
+
+  componentDidMount() {}
 
   render() {
     return (

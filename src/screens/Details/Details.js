@@ -37,7 +37,9 @@ export default class Details extends Component {
     getMagsFromApi(
       this.URL + this.props.navigation.state.params.array.id + this.key,
     ).then(response => {
-      this.setState({responseArray: response}), console.log(response);
+      this.setState({responseArray: response}),
+        console.log('response', response);
+      console.log('array', this.props.navigation.state.params.array);
     });
   }
 
@@ -45,16 +47,31 @@ export default class Details extends Component {
     return (
       <SafeAreaView style={styles.background}>
         <ScrollView style={{flex: 1}}>
-          <View style={{flexDirection: 'row'}}>
-            <Card
-              data={this.props.navigation.state.params.array}
-              width={Dimensions.get('window').width / 2.5}
-              onPress={() => {
-                console.log(item);
-              }}
-            />
-
-            <View style={{flex: 1}}>
+          <View
+            style={{
+              height: Dimensions.get('window').width * 0.7,
+              width: Dimensions.get('window').width,
+              flexDirection: 'row',
+            }}>
+            <View style={{flex: 1, flexDirection: 'column'}}>
+              <Text style={{color: 'white'}}>
+                {this.props.navigation.state.params.array.name}
+              </Text>
+              <Image
+                source={{
+                  uri:
+                    this.props.navigation.state.params.array.thumbnail.path +
+                    '.' +
+                    this.props.navigation.state.params.array.thumbnail
+                      .extension,
+                }}
+                style={{
+                  height: Dimensions.get('window').height * 0.3,
+                  width: Dimensions.get('window').width * 0.3,
+                }}
+              />
+            </View>
+            <View style={{height: 100, width: 200}}>
               <Text
                 style={{
                   color: 'white',
@@ -67,15 +84,16 @@ export default class Details extends Component {
           </View>
           <View style={{flex: 1}}>
             <FlatList
+              style={{
+                padding: 10,
+                alignSelf: 'center',
+              }}
               horizontal={true}
               data={this.state.responseArray.results}
               renderItem={({item}) => (
                 <Card
                   data={item}
                   width={Dimensions.get('window').width / 3.05}
-                  onPress={() => {
-                    console.log(item);
-                  }}
                 />
               )}
             />

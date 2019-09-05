@@ -12,6 +12,7 @@ import {
   Text,
 } from 'react-native';
 import Card from './../../components/Card';
+import homeStyles from './styles';
 
 async function getComicFromApi(url) {
   try {
@@ -23,6 +24,7 @@ async function getComicFromApi(url) {
   }
 }
 
+const styles = homeStyles;
 export default class Home extends Component {
   constructor(props) {
     super(props);
@@ -153,39 +155,3 @@ export default class Home extends Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    backgroundColor: '#333333',
-    padding: 8,
-  },
-  searchBar: {
-    flex: 0.95,
-    alignSelf: 'flex-start',
-    fontSize: 20,
-    color: 'white',
-    width: '90%',
-  },
-  searchComponent: {
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: 'white',
-    width: Dimensions.get('window').width * 0.95,
-  },
-  searchButton: {
-    flex: 1,
-    backgroundColor: 'white',
-    margin: 5,
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  searchButtonConteiner: {
-    flex: 0.25,
-    padding: 5,
-  },
-});

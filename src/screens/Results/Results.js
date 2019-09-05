@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import Card from './../../components/Card';
+import resultsStyles from './styles';
 
 export default class Results extends Component {
   constructor(props) {
@@ -18,14 +19,18 @@ export default class Results extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.navigation.state.params.array);
+    console.log('results');
   }
   render() {
     return (
       <SafeAreaView style={styles.background}>
         <ScrollView style={styles.scrollView}>
           <FlatList
-            style={{padding: 10}}
+            horizontal={true}
+            style={{
+              padding: 10,
+              alignSelf: 'center',
+            }}
             data={this.props.navigation.state.params.array}
             renderItem={({item}) => (
               <Card
@@ -46,15 +51,4 @@ export default class Results extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    alignItems: 'center',
-    flexDirection: 'column',
-    backgroundColor: '#333333',
-    padding: 8,
-  },
-  scrollView: {
-    flex: 1,
-  },
-});
+const styles = resultsStyles;
